@@ -24,6 +24,7 @@ function Features() {
       numColumns={2}
       keyExtractor={(item, index) => index.toString()} // Ensures each item has a unique key
       contentContainerStyle={styles.container}
+      nestedScrollEnabled
     />
   );
 }
@@ -34,7 +35,8 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1, // Allows content to center if fewer items
     justifyContent: "center",
-    padding: 10,
+    paddingVertical: 10,
+    paddingHorizontal:0
   },
   feature: {
     height: 167,
