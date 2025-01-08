@@ -1,28 +1,25 @@
 import React from "react";
-import { StyleSheet, View, Text, Dimensions, Image, Pressable } from "react-native";
+import { StyleSheet, View, Image, Dimensions, TouchableOpacity } from "react-native";
 import Carousel from "react-native-reanimated-carousel"; // Import the package
 import colors from "@/constants/colors";
-import { useNavigation } from "@react-navigation/native"; // For navigation
+import { Link } from "expo-router"; // Link component for navigation
 
 const { width } = Dimensions.get("window");
 
 const data = [
-  { id: 1, title: "Slide 1", image: require("../assets/carousel1.jpg"), route: "orderMedicineScreen" },
-  { id: 2, title: "Slide 2", image: require("../assets/carousel2.jpg"), route: "Screen2" },
-  { id: 3, title: "Slide 3", image: require("../assets/carousel3.jpg"), route: "Screen3" },
+  { id: 1, title: "Slide 1", image: require("../assets/carousel1.jpg"), route: "../screens/orderMedicine" },
+  { id: 2, title: "Slide 2", image: require("../assets/carousel2.jpg"), route: "../screens/orderMedicine" },
+  { id: 3, title: "Slide 3", image: require("../assets/carousel3.jpg"), route: "../screens/orderMedicine" },
 ];
 
 function CustomCarousel() {
-  const navigation = useNavigation();
-
   const renderItem = ({ item }) => {
     return (
-      <Pressable
-        style={styles.slide}
-        onPress={() => navigation.navigate(item.route)} // Navigate to the screen specified in the data array
-      >
-        <Image source={item.image} style={styles.image} />
-      </Pressable>
+      <TouchableOpacity style={styles.slide}>
+        <Link href={item.route} style={{ flex: 1 }}>
+          <Image source={item.image} style={styles.image} />
+        </Link>
+      </TouchableOpacity>
     );
   };
 
@@ -59,27 +56,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20, // Optional padding if you want space around the carousel
   },
   slide: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 10,
-    overflow: "hidden",
+    justifyContent: "center", // Keep items centered vertically
+    alignItems: "center", // Keep items centered horizontally
     backgroundColor: "transparent",
-    marginHorizontal: 10, // Space between the slides
+    marginHorizontal: '5%', // Space between the slides
+    marginVertical:'3%',
+    flex: 1, // Ensure the slide takes full height of the carousel
   },
   image: {
-    width: "90%",
-    height: "90%",
+    width: "100%",
+    height: "100%",
     resizeMode: "cover",
   },
-  title: {
-    position: "absolute",
-    bottom: 10,
-    color: "white",
-    fontSize: 18,
-    fontWeight: "bold",
-    textShadowColor: "rgba(0, 0, 0, 0.75)",
-    textShadowOffset: { width: -1, height: 1 },
-    textShadowRadius: 10,
-  },
 });
+

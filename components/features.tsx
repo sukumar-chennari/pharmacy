@@ -1,30 +1,33 @@
 import React from "react";
+import {
+  Image,
+  StyleSheet,
+  Text,
+  FlatList,
+  View,
+  Pressable,
+} from "react-native";
 import colors from "@/constants/colors";
-import { Image, StyleSheet, Text, FlatList, View } from "react-native";
+import { Link } from "expo-router";
 
-function Features() {
-  const data = [
-    { title: "Order Medicine", localImage: require("../assets/order.png") },
-    { title: "Care at home", localImage: require("../assets/care.png") },
-    { title: "Book Diagnostics", localImage: require("../assets/diagnostics.png") },
-    { title: "Consult a Doctor", localImage: require("../assets/consult.png") },
-  ];
-
+function Features({ data }) {
   const renderFeature = ({ item }) => (
-    <View style={styles.feature}>
-      <Image source={item.localImage} style={styles.image} />
-      <Text style={styles.text}>{item.title}</Text>
-    </View>
+    <Link href="/screens/orderMedicine" asChild>
+      <Pressable style={styles.feature} accessible accessibilityLabel={item.title}>
+        <Image source={item.localImage} style={styles.image} />
+        <Text style={styles.text}>{item.title}</Text>
+      </Pressable>
+    </Link>
   );
 
   return (
     <FlatList
       data={data}
       renderItem={renderFeature}
-      numColumns={2}
-      keyExtractor={(item, index) => index.toString()} // Ensures each item has a unique key
+      numColumns={2} // Ensure a 2-column layout
+      keyExtractor={(item) => item.id}
       contentContainerStyle={styles.container}
-      nestedScrollEnabled
+      showsVerticalScrollIndicator={true} // Enable scroll indicator
     />
   );
 }
@@ -33,26 +36,30 @@ export default Features;
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1, // Allows content to center if fewer items
-    justifyContent: "center",
+    flexGrow: 1,
     paddingVertical: 10,
-    paddingHorizontal:0
+    paddingHorizontal: 16,
   },
   feature: {
-    height: 167,
-    width: 167,
+    height: 150,
+    width: "45%", // Adjust width dynamically for consistent spacing
     justifyContent: "center",
     alignItems: "center",
-    margin: 8,
+    marginHorizontal: "2.5%", // Equal margin on both sides
+    marginVertical: 10,
     borderRadius: 10,
     borderWidth: 1,
     borderColor: "lightgray",
-    elevation: 1,
-    backgroundColor: "white", // Add background for better visibility
+    backgroundColor: "white",
+    elevation: 2,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
   },
   image: {
     width: 80,
-    height: 80, // Fixed image size for consistency
+    height: 80,
     resizeMode: "contain",
     marginBottom: 10,
   },
@@ -60,6 +67,6 @@ const styles = StyleSheet.create({
     color: colors.primary,
     fontWeight: "bold",
     fontSize: 14,
-    textAlign: "center", // Ensure text is centered
+    textAlign: "center",
   },
 });

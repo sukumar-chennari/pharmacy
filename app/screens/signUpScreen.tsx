@@ -16,6 +16,7 @@ import MainIcon from "@/components/mainIcon";
 import PrimaryButton from "@/components/PrimaryButton";
 import colors from "@/constants/colors";
 import TextBox from "@/components/TextBox";
+import { Link } from "expo-router";
 
 function SignUpScreen() {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -76,9 +77,12 @@ function SignUpScreen() {
           </Pressable>
         </View>
 
-        <Pressable onPress={() => alert("Forgot Password Pressed!")}>
+        <Link href={'/screens/forgotPasswordScreen'} asChild>
+        <Pressable >
           <Text style={styles.forgotPassword}>Forgot Password?</Text>
         </Pressable>
+        </Link>
+
 
         <PrimaryButton title="Login" onPress={() => alert("Login Pressed!")} />
 
