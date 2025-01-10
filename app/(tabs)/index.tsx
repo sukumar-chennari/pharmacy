@@ -3,6 +3,7 @@ import Address from "@/components/address";
 import CustomCarousel from "@/components/carousel";
 import Features from "@/components/features";
 import WelcomeUser from "@/components/welcomeUser";
+import Store from "@/components/store";
 
 function HomeScreen() {
   const data = [
@@ -23,9 +24,13 @@ function HomeScreen() {
           <>
             <WelcomeUser />
             <CustomCarousel />
+            <Features data={data} />
           </>
         }
-        ListFooterComponent={<Features data={data} />}
+        ListFooterComponent={<>
+        <Text  style={styles.title}>Near pharmacy stores</Text>
+        <Store/>
+        </>}
         keyExtractor={() => "homeScreen"} // Just a unique key for the whole list
         contentContainerStyle={styles.contentContainer}
         style={styles.scrollableContainer}
@@ -51,4 +56,9 @@ const styles = StyleSheet.create({
     paddingBottom: 20, // Add bottom padding for better spacing
     gap: 10,
   },
+  title:{
+    fontSize:20,
+    fontWeight:'bold',
+    marginVertical:8
+  }
 });

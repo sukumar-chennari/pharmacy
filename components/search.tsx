@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     position: "absolute", 
     justifyContent:'center',// Makes the component absolutely positioned
     top: 130, // Adjust this value to position the search bar vertically
-    left: "5%", // Centers the search bar horizontally
+    left: "1%", // Centers the search bar horizontally
   },
   icon: {
     marginRight: 10,

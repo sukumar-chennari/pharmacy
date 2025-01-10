@@ -9,12 +9,13 @@ function Address() {
     <View style={styles.container}>
       <View style={styles.addressContainer}>
         <View style={styles.locationInfo}>
-          <Ionicons name="location-outline" size={24} color="white" />
-          <Text style={styles.text}>Add Current Location</Text>
+        <Text style={[styles.text,{fontSize:18}]}>Add Address</Text>
+        <Ionicons name='arrow-down' size={22} color={'white'}/>
         </View>
-        <Ionicons name="notifications-outline" size={32} color="white" />
+        <Text style={[styles.opaqueText]}>Banjara Hills 500072</Text>
+        
       </View>
-      <Search />
+      {/* <Search /> */}
     </View>
   );
 }
@@ -32,11 +33,11 @@ const styles = StyleSheet.create({
     paddingBottom: 10, // Adds spacing for the search bar
   },
   addressContainer: {
-    flexDirection: "row",
+    // flexDirection: "row",
     justifyContent: "space-between", // Align location and bell icons to the ends
-    alignItems: "center", // Aligns items vertically
+    // alignItems: "center", // Aligns items vertically
     marginTop: 20,
-    paddingTop:40,
+    paddingTop:50,
     gap:8
   },
   locationInfo: {
@@ -49,4 +50,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "500",
   },
+  opaqueText:{
+    color:'white',
+    opacity:0.8,
+    fontSize:16
+  }
 });

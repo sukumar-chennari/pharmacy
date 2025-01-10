@@ -13,12 +13,13 @@ export default WelcomeUser
 
 const styles=StyleSheet.create({
     container:{
-        paddingTop:40,
+        paddingTop:5,
         marginVertical:10
     },
     text:{
     fontSize:20,
-    lineHeight:30
+    lineHeight:30,
+    fontWeight:"bold"
     },
     userText:{
         color:colors.primary

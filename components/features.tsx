@@ -1,34 +1,23 @@
 import React from "react";
-import {
-  Image,
-  StyleSheet,
-  Text,
-  FlatList,
-  View,
-  Pressable,
-} from "react-native";
+import { Image, StyleSheet, Text, View, Pressable } from "react-native";
 import colors from "@/constants/colors";
 import { Link } from "expo-router";
 
 function Features({ data }) {
-  const renderFeature = ({ item }) => (
-    <Link href="/screens/orderMedicine" asChild>
-      <Pressable style={styles.feature} accessible accessibilityLabel={item.title}>
-        <Image source={item.localImage} style={styles.image} />
-        <Text style={styles.text}>{item.title}</Text>
-      </Pressable>
-    </Link>
-  );
-
   return (
-    <FlatList
-      data={data}
-      renderItem={renderFeature}
-      numColumns={2} // Ensure a 2-column layout
-      keyExtractor={(item) => item.id}
-      contentContainerStyle={styles.container}
-      showsVerticalScrollIndicator={true} // Enable scroll indicator
-    />
+    <View style={styles.container}>
+      <Text style={styles.header}>Categories</Text>
+      <View style={styles.grid}>
+        {data.map((item) => (
+          <Link key={item.id} href="/screens/orderMedicine" asChild>
+            <Pressable style={styles.feature} accessible accessibilityLabel={item.title}>
+              <Image source={item.localImage} style={styles.image} />
+              <Text style={styles.text}>{item.title}</Text>
+            </Pressable>
+          </Link>
+        ))}
+      </View>
+    </View>
   );
 }
 
@@ -36,37 +25,47 @@ export default Features;
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
-    paddingVertical: 10,
-    paddingHorizontal: 16,
+    flex: 1,
+    // padding: ,
+  },
+  header: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginVertical: 10,
+  },
+  grid: {
+    flexDirection: "row",
+    flexWrap: "wrap", // Allows wrapping to new rows
+    justifyContent: "space-between", // Adds spacing between items
   },
   feature: {
-    height: 150,
-    width: "45%", // Adjust width dynamically for consistent spacing
-    justifyContent: "center",
-    alignItems: "center",
-    marginHorizontal: "2.5%", // Equal margin on both sides
-    marginVertical: 10,
+    flexDirection: "row", // Image and text side by side
+    alignItems: "center", // Vertical alignment
+    justifyContent: "flex-start", // Align content to the start
+    width: "48%", // Each item takes ~half the screen width
+    padding: 10, // Inner padding
+    marginBottom: 10, // Space between rows
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: "lightgray",
-    backgroundColor: "white",
-    elevation: 2,
+    borderColor: "#E0E0E0",
+    backgroundColor: colors.primary,
+    elevation: 3, // Subtle shadow for depth
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
   },
   image: {
-    width: 80,
-    height: 80,
+    width: 40, // Visible size for the image
+    height: 40,
     resizeMode: "contain",
-    marginBottom: 10,
+    marginRight: 10, // Spacing between image and text
   },
   text: {
-    color: colors.primary,
-    fontWeight: "bold",
+    color: "white",
+    fontWeight: "600",
     fontSize: 14,
-    textAlign: "center",
+    textAlign: "left",
+    flexShrink: 1, // Prevents text overflow
   },
 });

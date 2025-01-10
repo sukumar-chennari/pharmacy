@@ -2,14 +2,17 @@ import { Tabs } from "expo-router";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Entypo from "@expo/vector-icons/Entypo";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import { View, Text, StyleSheet, Dimensions } from "react-native";
+import { View, Text, StyleSheet, Dimensions, StatusBar } from "react-native";
 import colors from "@/constants/colors";
 
 export default function _layout() {
   const screenWidth = Dimensions.get("window").width;
 
   return (
-    <Tabs
+    <>  
+       <StatusBar barStyle={"dark-content"}/>
+
+       <Tabs
       screenOptions={({ route, navigation }) => ({
         headerShown: false,
         tabBarStyle: styles.tabBarStyle,
@@ -64,10 +67,13 @@ export default function _layout() {
       })}
     >
       <Tabs.Screen name="index" options={{ tabBarLabel: "" }} />
-      <Tabs.Screen name="cart" options={{ tabBarLabel: "" }} />
+      <Tabs.Screen name="cart" options={{ tabBarLabel: "" ,headerShown:true}} />
       <Tabs.Screen name="orders" options={{ tabBarLabel: "" }} />
-      <Tabs.Screen name="profile" options={{ tabBarLabel: "" }} />
+      <Tabs.Screen name="profile" options={{ tabBarLabel: "" ,headerShown:false}} />
     </Tabs>
+    </>
+   
+ 
   );
 }
 
