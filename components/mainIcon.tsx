@@ -4,7 +4,7 @@ import { StyleSheet, View, Image, Dimensions } from "react-native";
 
 function MainIcon({ size }: { size: number }) {
   return (
-    <View style={[styles.container, { height: size * 1.6 }]}>
+    <View style={[styles.container, { height: size * 1.1 }]}>
       <Image
         source={require("../assets/medley.png")}
         style={[

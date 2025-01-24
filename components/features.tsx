@@ -1,21 +1,48 @@
 import React from "react";
 import { Image, StyleSheet, Text, View, Pressable } from "react-native";
 import colors from "@/constants/colors";
-import { Link } from "expo-router";
+import { useNavigation } from "@react-navigation/native";
 
 function Features({ data }) {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Categories</Text>
       <View style={styles.grid}>
-        {data.map((item) => (
-          <Link key={item.id} href="/screens/orderMedicine" asChild>
-            <Pressable style={styles.feature} accessible accessibilityLabel={item.title}>
-              <Image source={item.localImage} style={styles.image} />
-              <Text style={styles.text}>{item.title}</Text>
+        {data.map((item) => {
+          const isActive = item.id === "1"; // Check if the feature is active
+          return (
+            <Pressable
+              key={item.id} // Unique key for each child
+              style={[
+                styles.feature,
+                !isActive && styles.inactiveFeature, // Apply gray style for inactive features
+              ]}
+              accessible
+              accessibilityLabel={item.title}
+              onPress={() => {
+                if (isActive) {
+                  navigation.navigate("OrderMedicine"); // Navigate only if active
+                }
+              }}
+              disabled={!isActive} // Disable press for inactive features
+            >
+              <Image
+                source={item.localImage}
+                style={[styles.image, !isActive && styles.inactiveImage]}
+              />
+              <Text
+                style={[
+                  styles.text,
+                  !isActive && styles.inactiveText, // Apply gray text for inactive features
+                ]}
+              >
+                {item.title}
+              </Text>
             </Pressable>
-          </Link>
-        ))}
+          );
+        })}
       </View>
     </View>
   );
@@ -26,7 +53,6 @@ export default Features;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // padding: ,
   },
   header: {
     fontSize: 20,
@@ -55,11 +81,19 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
   },
+  inactiveFeature: {
+    backgroundColor: "#d3d3d3", // Gray background for inactive features
+    borderColor: "#b0b0b0", // Gray border for inactive features
+    elevation: 0, // No shadow for inactive features
+  },
   image: {
     width: 40, // Visible size for the image
     height: 40,
     resizeMode: "contain",
     marginRight: 10, // Spacing between image and text
+  },
+  inactiveImage: {
+    opacity: 0.5, // Dimmed image for inactive features
   },
   text: {
     color: "white",
@@ -67,5 +101,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
     textAlign: "left",
     flexShrink: 1, // Prevents text overflow
+  },
+  inactiveText: {
+    color: "#7a7a7a", // Gray text for inactive features
   },
 });

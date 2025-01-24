@@ -14,8 +14,10 @@ import { Ionicons } from "@expo/vector-icons";
 import MainIcon from "@/components/mainIcon";
 import PrimaryButton from "@/components/PrimaryButton";
 import colors from "@/constants/colors";
+import { useNavigation } from "@react-navigation/native";
 
-function SignInScreen() {
+function SignInScreen({ onComplete, onClose }: { onComplete: () => void; onClose: () => void }) {
+  const navigation=useNavigation()
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [iconSize, setIconSize] = useState(150); // Initial size of the MainIcon
 
@@ -34,11 +36,21 @@ function SignInScreen() {
     };
   }, []);
 
+  const handleSignIn = () => {
+    alert("Sign-in successful!");
+    onComplete(); // Call the onComplete function to close the modal
+  };
+
   return (
     <KeyboardAvoidingView
       style={styles.container}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
+      {/* Close Button */}
+      <Pressable style={styles.closeButton} onPress={onClose}>
+        <Ionicons name="close" size={24} color="black" />
+      </Pressable>
+
       {/* Main Icon */}
       <MainIcon size={iconSize} />
 
@@ -78,16 +90,22 @@ function SignInScreen() {
           <Text style={styles.forgotPassword}>Forgot Password?</Text>
         </Pressable>
 
-        <PrimaryButton title="Login" onPress={() => alert("Login Pressed!")} />
+        <PrimaryButton title="Login" onPress={handleSignIn} />
       </View>
 
       {/* Create Account Section */}
       <View style={styles.accountContainer}>
         <Text style={styles.text}>
           Don't have an account?{" "}
-          <Text style={styles.innerText} onPress={() => alert("Create Account Pressed!")}>
+          <Pressable
+            style={styles.innerText}
+            onPress={() => navigation.navigate('signUp')}
+          >
+            <Text>
             Create Account
-          </Text>
+            </Text>
+        
+          </Pressable>
         </Text>
       </View>
     </KeyboardAvoidingView>
@@ -99,13 +117,19 @@ export default SignInScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "flex-start", // Ensure content stays at the top
+    justifyContent: "flex-start",
     alignItems: "center",
-    backgroundColor: "#f5f5f5",
+    backgroundColor: "#fff",
+  },
+  closeButton: {
+    position: "absolute",
+    top: 20,
+    right: 20,
+    zIndex: 10,
   },
   welcomeContainer: {
     alignItems: "center",
-    marginTop: 50, // Increased margin to ensure no overlap
+    marginTop: 50,
   },
   welcomeText: {
     fontSize: 18,
@@ -119,7 +143,7 @@ const styles = StyleSheet.create({
   },
   textInputContainer: {
     width: "90%",
-    marginTop: 20, // Additional margin to separate from the main icon
+    marginTop: 20,
   },
   textBox: {
     width: "100%",
@@ -145,20 +169,9 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 10,
   },
-  orContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginVertical: 10,
-  },
-  line: {
-    flex: 1,
-    height: 1,
-    backgroundColor: "gray",
-    marginHorizontal: 5,
-  },
   accountContainer: {
     alignItems: "center",
-    marginBottom: 40, // Added more space from the bottom of the screen
+    marginBottom: 40,
   },
   text: {
     color: "gray",

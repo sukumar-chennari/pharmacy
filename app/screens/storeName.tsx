@@ -1,15 +1,16 @@
-import { FlatList, StyleSheet, View, Dimensions } from "react-native";
-import Card from "./card";
-import Search from "./search";
+import { FlatList, StyleSheet, View, Dimensions, Pressable, Alert } from "react-native";
+import Card from "../../components/card";
+import Search from "../../components/search";
 import colors from "@/constants/colors";
+import { useNavigation } from "@react-navigation/native";
 
 export default function StoreName() {
   const { width } = Dimensions.get("window"); // Get the screen width
   const cardWidth = (width - 30) / 2; // Subtract total horizontal padding and divide for 2 columns
-
+  const navigation=useNavigation()
   const products = Array.from({ length: 20 }, (_, index) => ({
     name: "OneTouch Select Plus Test Strips, 50 Count",
-    image: require("../assets/carousel1.jpg"),
+    image: require("../../assets/carousel1.jpg"),
     price: 1134.4,
     discount: 20,
   }));
@@ -40,16 +41,16 @@ const styles = StyleSheet.create({
   },
   search: {
     backgroundColor: colors.primary,
-    height:150,
-    padding: 5,
-    borderRadius:10 // Padding around the search bar
+    height:50,
+    // padding: 5,
+    // borderRadius:10 // Padding around the search bar
   },
   columnWrapper: {
     justifyContent: "space-between", // Evenly space columns
     marginBottom: 15,
   },
   contentContainer: {
-    paddingHorizontal: 10, // Ensure horizontal padding matches
-    paddingTop: 50,
+    paddingHorizontal: 8, // Ensure horizontal padding matches
+    paddingTop: 30,
   },
 });

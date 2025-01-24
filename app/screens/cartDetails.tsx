@@ -1,17 +1,20 @@
 import React, { useState } from "react";
 import { Image, StyleSheet, Text, View, TouchableOpacity, Button, ScrollView } from "react-native";
-import Title from "./text";
+
 import Ionicons from "react-native-vector-icons/Ionicons";
 import colors from "@/constants/colors";
+import Title from "@/components/text";
+import { useNavigation } from "@react-navigation/native";
 
 export default function CartDetails() {
   const store = { name: "Pharmacy Store" };
+  const navigation=useNavigation()
 
   const [cart, setCart] = useState([
     {
       id: 1,
       name: "OneTouch Select Plus Test Strips, 50 Count",
-      image: require("../assets/carousel1.jpg"),
+      image: require("../../assets/carousel1.jpg"),
       price: 1134.4,
       ptr: 113.4,
       rx: false,
@@ -20,7 +23,7 @@ export default function CartDetails() {
     {
       id: 2,
       name: "OneTouch Select Plus Test Strips, 50 Count",
-      image: require("../assets/carousel1.jpg"),
+      image: require("../../assets/carousel1.jpg"),
       price: 1134.4,
       ptr: 113.4,
       rx: true,
@@ -60,7 +63,7 @@ export default function CartDetails() {
         <View style={styles.card}>
           <View style={styles.imageContainer}>
             <Image
-              source={require("../assets/shop.png")}
+              source={require("../../assets/shop.png")}
               style={styles.storeImage}
             />
           </View>
@@ -189,7 +192,7 @@ export default function CartDetails() {
             <Title text={`Total Items added 2`}  style={{color:'gray',fontSize:12}}/>
           </View>
           <View style={styles.placeOrderButtonContainer}>
-            <Button title="Place Order" color={colors.primary} />
+            <Button title="Place Order" color={colors.primary}  onPress={()=>navigation.navigate('Delivery')} />
           </View>
         </View>
       </View>

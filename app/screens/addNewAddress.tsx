@@ -10,10 +10,11 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
-import Title from "./text"; // Assuming this is your custom Title component
-import colors from "@/constants/colors";
 
-export default function AddAddress() {
+import colors from "@/constants/colors";
+import Title from "@/components/text";
+
+export default function AddNewAddress() {
   const [isDefaultAddress, setIsDefaultAddress] = useState(false);
 
   const toggleDefaultAddress = () => {

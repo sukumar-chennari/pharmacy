@@ -2,8 +2,10 @@ import React from "react";
 import { Image, View, StyleSheet, Button, ScrollView } from "react-native";
 import Title from "./text";
 import colors from "@/constants/colors";
+import { useNavigation } from "@react-navigation/native";
 
 export default function OrderList() {
+  const navigation=useNavigation()
   const orderList = [
     {
       id: 34,
@@ -62,7 +64,7 @@ export default function OrderList() {
               title="View Order Details"
               color={colors.primary}
               onPress={() => {
-                console.log(`Viewing details for order ${orderItem.id}`);
+                navigation.navigate('orderDetails');
               }}
             />
           </View>

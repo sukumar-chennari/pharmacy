@@ -1,8 +1,10 @@
-import { Button, Image, StyleSheet, Text, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { Button, Image, Pressable, StyleSheet, Text, View } from "react-native";
 
 export default function Card({ product, style }) {
+  const navigation=useNavigation()
   return (
-    <View style={[styles.container, style]}>
+    <Pressable style={[styles.container, style]} onPress={()=>navigation.navigate('ProductDetails')}>
       <Image source={product.image} style={styles.image} />
       <Text style={styles.title} numberOfLines={2}>
         {product.name}
@@ -14,7 +16,7 @@ export default function Card({ product, style }) {
         <Text style={styles.price}>{`₹ ${product.price}`}</Text>
       </View>
       <Button title="Add Cart" />
-    </View>
+    </Pressable>
   );
 }
 

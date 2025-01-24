@@ -7,11 +7,18 @@ import {
   View,
   TouchableOpacity,
 } from "react-native";
-import {Ionicons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
-export default function Store() {
+
+// export default function Stores(){
+//   return <Text>
+//     Store
+//   </Text>
+// }
+export default function Stores() {
   const [favorites, setFavorites] = useState<string[]>([]);
-
+  const navigation=useNavigation()
   const toggleFavorite = (id: string) => {
     setFavorites((prev) =>
       prev.includes(id) ? prev.filter((favId) => favId !== id) : [...prev, id]
@@ -21,7 +28,7 @@ export default function Store() {
   const stores = [
     {
       id: "1",
-      name: "Pharmacy Store",
+      name: "Pharmacy Store 1",
       rating: "4.4",
       reviews: "(1.8k+)",
       time: "40-45min",
@@ -30,7 +37,7 @@ export default function Store() {
     },
     {
       id: "2",
-      name: "Pharmacy Store",
+      name: "Pharmacy Store 2",
       rating: "4.4",
       reviews: "(1.8k+)",
       time: "40-45min",
@@ -39,7 +46,7 @@ export default function Store() {
     },
     {
       id: "3",
-      name: "Pharmacy Store",
+      name: "Pharmacy Store 3",
       rating: "4.4",
       reviews: "(1.8k+)",
       time: "40-45min",
@@ -48,7 +55,7 @@ export default function Store() {
     },
     {
       id: "4",
-      name: "Pharmacy Store",
+      name: "Pharmacy Store 4",
       rating: "4.4",
       reviews: "(1.8k+)",
       time: "40-45min",
@@ -62,10 +69,14 @@ export default function Store() {
       <FlatList
         data={stores}
         renderItem={({ item }) => (
-          <View style={styles.card}>
+          <TouchableOpacity
+            style={styles.card}
+            onPress={ ()=>navigation.navigate('DetailedStore')}
+            // accessibilityLabel={`Navigate to details of ${item.name}`}
+          >
             <View style={styles.imageContainer}>
               <Image
-                source={require("../assets/shop.png")}
+                source={require("../../assets/shop.png")}
                 style={styles.image}
               />
             </View>
@@ -84,20 +95,19 @@ export default function Store() {
               onPress={() => toggleFavorite(item.id)}
               accessibilityLabel={`Toggle favorite for ${item.name}`}
             >
-                         <Ionicons
+              <Ionicons
                 name={favorites.includes(item.id) ? "heart" : "heart-outline"}
                 size={24}
                 color={favorites.includes(item.id) ? "red" : "gray"}
               />
             </TouchableOpacity>
-          </View>
+          </TouchableOpacity>
         )}
         keyExtractor={(item) => item.id}
       />
     </View>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -154,10 +164,5 @@ const styles = StyleSheet.create({
   },
   favoriteButton: {
     padding: 8,
-  },
-  heartIcon: {
-    height: 20,
-    width: 20,
-    resizeMode: "contain",
   },
 });

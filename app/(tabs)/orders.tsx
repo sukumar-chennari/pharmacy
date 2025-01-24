@@ -1,5 +1,5 @@
-import AddAddress from "@/components/addAddress";
-import LocationMap from "@/components/location";
+import AddAddress from "@/components/addNewAddress";
+import LocationMap from "@/components/fetchAddress";
 import OrderList from "@/components/orderList";
 import { SafeAreaView, Text, View } from "react-native";
 

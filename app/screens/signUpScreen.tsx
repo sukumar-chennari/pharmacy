@@ -15,12 +15,13 @@ import { AntDesign } from "@expo/vector-icons";
 import MainIcon from "@/components/mainIcon";
 import PrimaryButton from "@/components/PrimaryButton";
 import colors from "@/constants/colors";
-import TextBox from "@/components/TextBox";
 import { Link } from "expo-router";
+import { useNavigation } from "@react-navigation/native";
 
-function SignUpScreen() {
+function SignUpScreen({ onComplete, onClose }) {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [iconSize, setIconSize] = useState(150); // Initial size of the MainIcon
+  const navigation = useNavigation();
 
   useEffect(() => {
     const keyboardShowListener = Keyboard.addListener("keyboardDidShow", () => {
@@ -77,14 +78,13 @@ function SignUpScreen() {
           </Pressable>
         </View>
 
-        <Link href={'/screens/forgotPasswordScreen'} asChild>
-        <Pressable >
-          <Text style={styles.forgotPassword}>Forgot Password?</Text>
-        </Pressable>
+        <Link href={"/screens/forgotPasswordScreen"} asChild>
+          <Pressable>
+            <Text style={styles.forgotPassword}>Forgot Password?</Text>
+          </Pressable>
         </Link>
 
-
-        <PrimaryButton title="Login" onPress={() => alert("Login Pressed!")} />
+        <PrimaryButton title="Sign Up" onPress={onComplete} />
 
         {/* OR Section */}
         <View style={styles.orContainer}>
@@ -94,18 +94,29 @@ function SignUpScreen() {
         </View>
 
         {/* Google Sign-In Button */}
-        <Pressable style={styles.googleButton} onPress={() => alert("Google Sign-In Pressed!")}>
+        <Pressable
+          style={styles.googleButton}
+          onPress={() => {
+            alert("Google Sign-Up Pressed!");
+            onComplete(); // Simulate completion
+          }}
+        >
           <AntDesign name="google" size={20} color="white" />
-          <Text style={styles.googleButtonText}>Sign in with Google</Text>
+          <Text style={styles.googleButtonText}>Sign up with Google</Text>
         </Pressable>
       </View>
 
-      {/* Create Account Section */}
+      {/* Navigate to Sign In Section */}
       <View style={styles.accountContainer}>
         <Text style={styles.text}>
-          Don't have an account?{" "}
-          <Text style={styles.innerText} onPress={() => alert("Create Account Pressed!")}>
-            Create Account
+          Already have an account?{" "}
+          <Text
+            style={styles.innerText}
+            onPress={() => {
+              navigation.navigate('signIn'); // Navigate back to the SignIn screen
+            }}
+          >
+            Sign In
           </Text>
         </Text>
       </View>
@@ -124,7 +135,7 @@ const styles = StyleSheet.create({
   },
   welcomeContainer: {
     alignItems: "center",
-    marginTop: 10,
+    marginTop: 60, // Leave space for the close button
   },
   welcomeText: {
     fontSize: 18,
